@@ -1,6 +1,7 @@
 package com.example.demostore.auth;
 
 import com.example.demostore.model.User;
+import lombok.Getter;
 import net.minidev.json.annotate.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,8 +18,11 @@ public class UserDetailsImpl implements UserDetails {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @Getter
     private final Long id;
     private final String username;
+
+    @Getter
     private final String email;
 
     @JsonIgnore
