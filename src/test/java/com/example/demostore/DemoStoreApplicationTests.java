@@ -29,7 +29,6 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest
 class DemoStoreApplicationTests {
 
     @Mock
@@ -43,19 +42,39 @@ class DemoStoreApplicationTests {
 
     @BeforeEach
     void setUp() {
-        product = Product.builder()
-                .id(1L)
-                .name("test product")
-                .description("test")
-                .price(new BigDecimal("19.99"))
-                .quantity(100)
-                .sku("TEST-123")
-                .category(ProductCategory.ELECTRONICS)
-                .active(true)
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
-                .build();
+        product = new Product();
+        product.setId(1L);
+        product.setName("Test Product");
+        product.setDescription("Test Description");
+        product.setPrice(new BigDecimal("19.99"));
+        product.setQuantity(100);
+        product.setSku("TEST-123");
+        product.setCategory(ProductCategory.ELECTRONICS);
+        product.setActive(true);
+        product.setCreatedAt(LocalDateTime.now());
+        product.setUpdatedAt(LocalDateTime.now());
 
+//        productDTO = new ProductDTO();
+//        productDTO.name("New Product");
+//        productDTO.description("New Description");
+//        productDTO.setPrice(new BigDecimal("29.99"));
+//        productDTO.setStockQuantity(50);
+//        productDTO.setSku("NEW-123");
+//        productDTO.setCategory(ProductCategory.BOOKS);
+
+//        product = Product.builder()
+//                .id(1L)
+//                .name("test product")
+//                .description("test")
+//                .price(new BigDecimal("19.99"))
+//                .quantity(100)
+//                .sku("TEST-123")
+//                .category(ProductCategory.ELECTRONICS)
+//                .active(true)
+//                .createdAt(LocalDateTime.now())
+//                .updatedAt(LocalDateTime.now())
+//                .build();
+//
         productDTO = ProductDTO.builder()
                 .name("new product")
                 .description("new")
@@ -110,7 +129,7 @@ class DemoStoreApplicationTests {
 
     @Test
     void shouldThrowExceptionWhenProductNotFoundById() {
-         
+
         when(productRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         assertThrows(ResourceNotFoundException.class, () -> {

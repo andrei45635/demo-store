@@ -5,18 +5,21 @@ import com.example.demostore.dtos.ProductResponse;
 import com.example.demostore.dtos.UpdatePriceDTO;
 import com.example.demostore.dtos.UpdateProductDTO;
 import com.example.demostore.enums.ProductCategory;
+import com.example.demostore.exceptions.BadRequestException;
 import com.example.demostore.exceptions.ResourceAlreadyExistsException;
 import com.example.demostore.exceptions.ResourceNotFoundException;
 import com.example.demostore.model.Product;
 import com.example.demostore.repo.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cglib.core.Local;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,6 +47,8 @@ public class ProductService {
                 .sku(productDTO.sku())
                 .category(productDTO.category())
                 .active(true)
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
                 .build();
 
         Product savedProduct = productRepository.save(product);
@@ -156,7 +161,7 @@ public class ProductService {
         int newQuantity = product.getQuantity() + quantity;
         if(newQuantity < 0) {
             log.error("Insufficient stock for product with ID: {}", id);
-            throw new ResourceNotFoundException("Product", "id", id);
+            throw new BadRequestException("Insufficient stock for product id %d".formatted(id));
         }
 
         product.setQuantity(newQuantity);

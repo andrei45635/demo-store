@@ -22,10 +22,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findByQuantityLessThan(int quant);
 
-    @Query("select p from products p where p.price between :minPrice and :maxPrice")
+    @Query("select p from Product p where p.price between :minPrice and :maxPrice")
     List<Product> findByPriceRange(@Param("minPrice") BigDecimal minPrice, @Param("maxPrice") BigDecimal maxPrice);
 
-    @Query("select p from products p where lower(p.name) like lower(concat('%', :keyword, '%')) or lower(p.description) like lower(concat('%', :keyword, '%'))")
+    @Query("select p from Product p where lower(p.name) like lower(concat('%', :keyword, '%')) or lower(p.description) like lower(concat('%', :keyword, '%'))")
     List<Product> searchByKeyword(@Param("keyword") String keyword);
 
 }
