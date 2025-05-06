@@ -54,27 +54,6 @@ class DemoStoreApplicationTests {
         product.setCreatedAt(LocalDateTime.now());
         product.setUpdatedAt(LocalDateTime.now());
 
-//        productDTO = new ProductDTO();
-//        productDTO.name("New Product");
-//        productDTO.description("New Description");
-//        productDTO.setPrice(new BigDecimal("29.99"));
-//        productDTO.setStockQuantity(50);
-//        productDTO.setSku("NEW-123");
-//        productDTO.setCategory(ProductCategory.BOOKS);
-
-//        product = Product.builder()
-//                .id(1L)
-//                .name("test product")
-//                .description("test")
-//                .price(new BigDecimal("19.99"))
-//                .quantity(100)
-//                .sku("TEST-123")
-//                .category(ProductCategory.ELECTRONICS)
-//                .active(true)
-//                .createdAt(LocalDateTime.now())
-//                .updatedAt(LocalDateTime.now())
-//                .build();
-//
         productDTO = ProductDTO.builder()
                 .name("new product")
                 .description("new")
