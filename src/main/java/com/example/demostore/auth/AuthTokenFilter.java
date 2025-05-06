@@ -27,7 +27,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
-            if (request.getServletPath().startsWith("/auth/")) {
+            if (request.getServletPath().startsWith("/auth/") || request.getServletPath().startsWith("/swagger-ui")) {
                 log.debug("Skipping token validation for auth endpoint: {}", request.getRequestURI());
                 filterChain.doFilter(request, response);
                 return;
