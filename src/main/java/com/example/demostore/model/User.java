@@ -40,6 +40,16 @@ public class User extends BaseEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
+
     @Builder.Default
     private Set<Role> roles = new HashSet<>();
+
+    public record UserSummary(Long id, String username, String email, String fullName, Set<String> roles) {
+        public static UserSummary fromUser(User user) {
+            Set<String> roleNames = new HashSet<>();
+            user.getRoles().forEach(role -> roleNames.add(String.valueOf(role.getName())));
+
+            return new UserSummary(user.getId(), user.getUsername(), user.getEmail(), user.getFirstName() + " " + user.getLastName(), roleNames);
+        }
+    }
 }
